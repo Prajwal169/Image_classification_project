@@ -1,0 +1,24 @@
+asgiref==3.8.1
+Django==4.2.13
+imageio==2.34.1
+lazy_loader==0.4
+networkx==3.2.1
+numpy==1.26.4
+opencv-python==4.9.0.80
+packaging==24.0
+pillow==10.3.0
+scikit-image==0.22.0
+scipy==1.13.1
+sqlparse==0.5.0
+tifffile==2024.5.22
+typing_extensions==4.12.1
+tzdata==2024.1
+
+#pip install aiofiles
+#pip install numba
+#pip install tensorflow opencv-python
+#pip install django-multiupload
+#pip install django-extra-views
+#pip install django-jsonify
+#pip install django-json-widget
+

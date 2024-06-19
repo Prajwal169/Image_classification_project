@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Upload Images</title>
+    <style>
+        body {
+            background-image: url("{% static 'Background_img/grey.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: rgba(240, 240, 240, 0.5); /* White surface with transparency */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .container {
+            background-color: #fff; /* White background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px 0;
+            width: 90%;
+            max-width: 800px;
+        }
+        .image-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .image-container img {
+            max-height: 200px;
+            width: auto;
+        }
+        .image-container div {
+            text-align: center;
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Upload Images</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <label for="threshold">Threshold:</label>
+            <input type="number" name="threshold" id="threshold" value="{{ threshold }}" min="0" max="100" step="1">
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+    {% for result in results %}
+    <div class="container">
+        <div class="image-container">
+            <div>
+                <h3>Uploaded Image</h3>
+                <img src="{% static result.uploaded_image_url %}" alt="Uploaded Image">
+            </div>
+
+            {% if result.most_matching_image_url %}
+            <div>
+                <h3>Most Matching Image</h3>
+                <img src="{% static result.most_matching_image_url %}" alt="Most Matching Image">
+                <p>Similarity score: {{ result.most_matching_percentage }}%</p>
+            </div>
+            {% else %}
+            <div>
+                <h3>No matching image found</h3>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
